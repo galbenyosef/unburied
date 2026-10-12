@@ -1,0 +1,29 @@
+{
+  "capture": "index.html",
+  "generated": "2026-10-12",
+  "note": "byte ranges + sha256 of every inline <script>/<style> content block in the captured entry document; twins are the prettified (prettier 3.9.6, module API) renderings and are never shipped to a browser.",
+  "blocks": [
+    {
+      "file": "readable/index-inline-1.pretty.css",
+      "source": "index.html",
+      "section": "index-inline-1.css",
+      "kind": "style",
+      "block": 1,
+      "byteStart": 574,
+      "byteEnd": 1223,
+      "bytes": 649,
+      "sha256": "5b7cc088e366e3385bb9e732afb4aeb84f4cc9a4058d761a9ebb0e4691992339"
+    },
+    {
+      "file": "readable/index-inline-1.pretty.json",
+      "source": "index.html",
+      "section": "index-inline-1.json",
+      "kind": "importmap",
+      "block": 1,
+      "byteStart": 1257,
+      "byteEnd": 1368,
+      "bytes": 111,
+      "sha256": "8e1c3a913538de733662d71f5a87d8c269d504194fc3e07e38982016c4deaf32"
+    }
+  ]
+}

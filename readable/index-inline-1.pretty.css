@@ -1,0 +1,47 @@
+:root {
+  color-scheme: dark;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #050404;
+}
+body {
+  font-family: system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#game {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  outline: none;
+}
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+#fatal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  color: #d8cfc0;
+  background: #0b0807;
+  font:
+    15px/1.5 ui-monospace,
+    monospace;
+  padding: 24px;
+  text-align: center;
+}
+#fatal b {
+  color: #c0281c;
+  display: block;
+  font-size: 20px;
+  margin-bottom: 8px;
+}

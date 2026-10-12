@@ -1,0 +1,58 @@
+{
+  "start": "https://unburied.inkwave.workers.dev/",
+  "origin": "https://unburied.inkwave.workers.dev",
+  "gated": false,
+  "sessionRenewal": "none",
+  "requests": 31,
+  "fetched": 31,
+  "bytes": 3598685,
+  "paths": [
+    "index.html",
+    "src/audio.js",
+    "src/avatars.js",
+    "src/fx.js",
+    "src/game.js",
+    "src/hud.js",
+    "src/level.js",
+    "src/main.js",
+    "src/net.js",
+    "src/player.js",
+    "src/post.js",
+    "src/textures.js",
+    "src/weapons.js",
+    "src/zombies.js",
+    "vendor/peerjs/peerjs.min.js",
+    "vendor/three/build/three.core.js",
+    "vendor/three/build/three.module.js",
+    "vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js",
+    "vendor/three/examples/jsm/postprocessing/EffectComposer.js",
+    "vendor/three/examples/jsm/postprocessing/MaskPass.js",
+    "vendor/three/examples/jsm/postprocessing/OutputPass.js",
+    "vendor/three/examples/jsm/postprocessing/Pass.js",
+    "vendor/three/examples/jsm/postprocessing/RenderPass.js",
+    "vendor/three/examples/jsm/postprocessing/SMAAPass.js",
+    "vendor/three/examples/jsm/postprocessing/ShaderPass.js",
+    "vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js",
+    "vendor/three/examples/jsm/shaders/CopyShader.js",
+    "vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js",
+    "vendor/three/examples/jsm/shaders/OutputShader.js",
+    "vendor/three/examples/jsm/shaders/SMAAShader.js",
+    "vendor/three/examples/jsm/utils/BufferGeometryUtils.js"
+  ],
+  "unresolved": [],
+  "unreachable": [],
+  "external": [
+    {
+      "pattern": "0.peerjs.com (PeerJS broker)",
+      "kind": "runtime-multiplayer-broker",
+      "note": "co-op signaling relay, contacted only when hosting/joining (peerjs transport); the vendored client vendor/peerjs/peerjs.min.js is captured, the public broker itself is out of scope. Solo play (?net=local or offline) loads nothing off-origin."
+    }
+  ],
+  "notes": [
+    "Closure method: static scan of every captured HTML/JS to fixpoint (static/bare/dynamic imports, new URL(..., import.meta.url), asset-path string literals) with the entry import map resolving bare specifiers; cross-checked against the opencli browser network log while playing — all 31 requests matched the capture, zero 404s.",
+    "Scanner false positives (recorded, not references): bare string literals inside three.js doc comments (sprite.png, fish.gltf, models/json/example.json, mikktspace.module.js, ...) and the IndexedDB database name \"unburied-textures\" in src/textures.js.",
+    "No genuine upstream 404s: every referenced same-origin file was fetched (unreachable is empty).",
+    "Boot test: served on loopback, solo round played (window.__ready true, phase playing), cover + boot evidence screenshots captured from actual gameplay, listener PID 13756 killed, port 4310 proven closed (netstat + connection refused).",
+    "Drift probe tools/update.mjs: up to date — 31 captured files identical upstream; _mirror-report.json excluded by name (local-only record)."
+  ]
+}

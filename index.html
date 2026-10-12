@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNBURIED — Blackwald Bunker</title>
+<meta name="description" content="A round-based WWII zombie survival shooter built in three.js.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23120c0a'/%3E%3Cpath d='M14 12v40M24 12v40M34 12v40M44 12v40M8 44L54 18' stroke='%23a3120e' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #050404; }
+  body { font-family: system-ui, sans-serif; user-select: none; -webkit-user-select: none; }
+  #game { position: fixed; inset: 0; display: block; width: 100vw; height: 100vh; outline: none; }
+  #hud { position: fixed; inset: 0; pointer-events: none; }
+  #fatal { position: fixed; inset: 0; display: none; place-items: center; color: #d8cfc0;
+           background: #0b0807; font: 15px/1.5 ui-monospace, monospace; padding: 24px; text-align: center; }
+  #fatal b { color: #c0281c; display: block; font-size: 20px; margin-bottom: 8px; }
+</style>
+<script type="importmap">{"imports":{
+  "three":"/vendor/three/build/three.module.js",
+  "three/addons/":"/vendor/three/examples/jsm/"}}</script>
+</head>
+<body>
+<canvas id="game" tabindex="0"></canvas>
+<div id="hud"></div>
+<div id="fatal"></div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

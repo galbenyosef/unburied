@@ -1,0 +1,1507 @@
+{
+  "project": "unburied",
+  "kind": "statement-aligned-slices",
+  "defaultFile": "src/src__main-01.js",
+  "note": "UNBURIED — Blackwald Bunker (https://unburied.inkwave.workers.dev/) is capture-class: a hand-written ES module graph served at the origin root by a Cloudflare Workers static host (no bundler in the app layer). §0.4 fork-over-mirror was checked on 2026-10-12 — neither the page nor its JS references a public source repo (zero github.com/gitlab.com references in the capture), so the mirror stands. Derived pipeline: capture → pinned prettier 3.9.6 (module API, default options, single pass verified idempotent — never the CLI: it respects .gitignore and can silently echo its input) → readable/<name>.pretty.js per captured JS file (capture-relative name, nested dirs flattened with __; every pretty provably NOT byte-identical to its capture source) → statement-aligned slices src/<name>-NN.js of every APP module (top-level declaration boundaries only, ~250-350 line windows; oversized single declarations stay whole) with an exact 2-line provenance header. Every slice parses standalone under `node --input-type=module --check -` and round-trips byte-exact to its recorded readable line range. Layout divergence (README): the origin serves the app under /src/ and the vendored libraries under /vendor/, so the byte-exact capture lives at src/*.js and vendor/** at the repo root — derived slices share src/ with the captured modules and are never listed in .upstream/manifest.json. Vendor rule — wholeFile sections, never sliced: everything under vendor/ (three.js r185 build three.core/three.module, the jsm addons the app imports, the PeerJS UMD bundle). Inline <script>/<style> scan: index.html carries an inline importmap and an inline <style> block — twins readable/index-inline-N.pretty.{json,css} + readable/index-inline-map.json with byte ranges + sha256. Non-standalone parts are skipped sections, indexed but never sliced: a pure trailing export {…} table where one exists. Identifiers in src/ are the app's own declared names — no rename campaign applies (PLAN §5) since the served code is not minified. Capture bytes are untouched by everything above; re-cut with `node tools/derive.mjs` after any capture refresh. `node tools/audit.js` is the gate.",
+  "renderOptions": {
+    "_default": "prettier 3.9.6, module API, default options, single pass (re-format verified idempotent at derive time) — never the CLI: it respects .gitignore and can silently echo its input",
+    "js": "parser babel, no plugins",
+    "css": "parser css, no plugins",
+    "json": "parser json, no plugins (inline importmap blocks)"
+  },
+  "source": "readable/: 30 JS pretties (13 app module(s) sliced, 17 vendor wholeFile) + 1 CSS pretties; src/: 103 statement-aligned slices across 13 app module(s); 0 skipped section(s); 19 wholeFile section(s); capture: 31 files under .upstream/manifest.json; inline scan: index.html (2 inline content block(s)); notRendered: 0 payload(s).",
+  "inline": {
+    "scanned": [
+      "index.html"
+    ],
+    "contentBlocks": 2,
+    "notRendered": 0,
+    "note": "index.html carries an inline importmap and an inline <style> block — both prettified into readable/index-inline-N.pretty.{json,css} twins and recorded in readable/index-inline-map.json."
+  },
+  "sources": [
+    {
+      "sourceFile": "readable/src__main.pretty.js",
+      "capture": "src/main.js",
+      "captureKind": "file",
+      "captureSha256": "6af834ca1a16e6fd6079b9b5f5dc57f9d1b34cbb8508d5b3dde38259da89cf19",
+      "captureBytes": 29459,
+      "prettyLines": 1244,
+      "prettyBytes": 32815,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__main",
+      "slices": 5,
+      "derived": "readable + 5 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__audio.pretty.js",
+      "capture": "src/audio.js",
+      "captureKind": "file",
+      "captureSha256": "65dae052f8df3167922283085bf28ebd32f53d800c4e3cd4a905b2128c8a556a",
+      "captureBytes": 123863,
+      "prettyLines": 5639,
+      "prettyBytes": 145275,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__audio",
+      "slices": 20,
+      "derived": "readable + 20 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__avatars.pretty.js",
+      "capture": "src/avatars.js",
+      "captureKind": "file",
+      "captureSha256": "bd2d8b1162a8e573be072852afe73be4d3f440d06b01af412f0de02cf8df8b70",
+      "captureBytes": 193189,
+      "prettyLines": 7175,
+      "prettyBytes": 217933,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__avatars",
+      "slices": 18,
+      "derived": "readable + 18 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__fx.pretty.js",
+      "capture": "src/fx.js",
+      "captureKind": "file",
+      "captureSha256": "af08d5c7f2b2fff3fe0f9b4fc5099464d370b6b67a5102727eadb299125ed524",
+      "captureBytes": 95625,
+      "prettyLines": 3844,
+      "prettyBytes": 111682,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__fx",
+      "slices": 8,
+      "derived": "readable + 8 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__game.pretty.js",
+      "capture": "src/game.js",
+      "captureKind": "file",
+      "captureSha256": "92342db228fcc5d187cb91d1217f641c9838447773619bcba78681eebe5b962d",
+      "captureBytes": 56233,
+      "prettyLines": 2240,
+      "prettyBytes": 64071,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__game",
+      "slices": 2,
+      "derived": "readable + 2 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__hud.pretty.js",
+      "capture": "src/hud.js",
+      "captureKind": "file",
+      "captureSha256": "3d17360e681f5114a45c6e31a07d17e309ae794080c26fe2cee6e61a2e480b34",
+      "captureBytes": 135450,
+      "prettyLines": 3170,
+      "prettyBytes": 142093,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__hud",
+      "slices": 7,
+      "derived": "readable + 7 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__level.pretty.js",
+      "capture": "src/level.js",
+      "captureKind": "file",
+      "captureSha256": "04240ba99fcf008c54e2ef3075217bceb73aa1efdc809bfc537f27b7103d5f29",
+      "captureBytes": 173077,
+      "prettyLines": 6432,
+      "prettyBytes": 199047,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__level",
+      "slices": 6,
+      "derived": "readable + 6 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__net.pretty.js",
+      "capture": "src/net.js",
+      "captureKind": "file",
+      "captureSha256": "2e2f81229c9e6346f2e2cd6a507aa88803344172d1a2d3cadb47bb5e5cb5e1ac",
+      "captureBytes": 65483,
+      "prettyLines": 2274,
+      "prettyBytes": 70167,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__net",
+      "slices": 5,
+      "derived": "readable + 5 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__player.pretty.js",
+      "capture": "src/player.js",
+      "captureKind": "file",
+      "captureSha256": "f46d61d3b7cb8a6e797c8303d6018dde9fbe4b95532e311e27a7174cbd2a06cb",
+      "captureBytes": 11602,
+      "prettyLines": 410,
+      "prettyBytes": 12551,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__player",
+      "slices": 2,
+      "derived": "readable + 2 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__post.pretty.js",
+      "capture": "src/post.js",
+      "captureKind": "file",
+      "captureSha256": "4be282435b081c18bd6bcc4f6f70d0ec71665f88a2aafcff27f4b68b2f3ee1fe",
+      "captureBytes": 8187,
+      "prettyLines": 211,
+      "prettyBytes": 8311,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__post",
+      "slices": 1,
+      "derived": "readable + 1 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__textures.pretty.js",
+      "capture": "src/textures.js",
+      "captureKind": "file",
+      "captureSha256": "4a94c201d685c25bf8af89980dda70b98d81f69dec826d70f8547b914d586c2d",
+      "captureBytes": 93623,
+      "prettyLines": 3756,
+      "prettyBytes": 112625,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__textures",
+      "slices": 4,
+      "derived": "readable + 4 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__weapons.pretty.js",
+      "capture": "src/weapons.js",
+      "captureKind": "file",
+      "captureSha256": "6aea00638150aa8c9d8c266b3cc890a7193788cc376c2a86e86dbe982262784d",
+      "captureBytes": 159905,
+      "prettyLines": 6909,
+      "prettyBytes": 182210,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__weapons",
+      "slices": 16,
+      "derived": "readable + 16 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/src__zombies.pretty.js",
+      "capture": "src/zombies.js",
+      "captureKind": "file",
+      "captureSha256": "45110ea4bf1150192510b40df40923064f3aad595145532cd2edf4b3aab8692f",
+      "captureBytes": 113887,
+      "prettyLines": 4663,
+      "prettyBytes": 130216,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "src__zombies",
+      "slices": 9,
+      "derived": "readable + 9 statement-aligned slice(s)"
+    },
+    {
+      "sourceFile": "readable/vendor__peerjs__peerjs.min.pretty.js",
+      "capture": "vendor/peerjs/peerjs.min.js",
+      "captureKind": "file",
+      "captureSha256": "7604d8c31bec4f134b0d15c2d80b1d095ea18af005354f439f14291fcd7b4168",
+      "captureBytes": 86948,
+      "prettyLines": 4152,
+      "prettyBytes": 135925,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__peerjs__peerjs.min",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "PeerJS WebRTC data-channel UMD bundle (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__build__three.core.pretty.js",
+      "capture": "vendor/three/build/three.core.js",
+      "captureKind": "file",
+      "captureSha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759",
+      "captureBytes": 1443056,
+      "prettyLines": 56142,
+      "prettyBytes": 1508520,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__build__three.core",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js r185 build (three.core.js) (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__build__three.module.pretty.js",
+      "capture": "vendor/three/build/three.module.js",
+      "captureKind": "file",
+      "captureSha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7",
+      "captureBytes": 650153,
+      "prettyLines": 19601,
+      "prettyBytes": 703250,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__build__three.module",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js r185 build (three.module.js) (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js",
+      "capture": "vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js",
+      "captureKind": "file",
+      "captureSha256": "c1b7c9bd2cddff2e3f3a0723f618a3d364a47450e3d25771d21faed88410bec8",
+      "captureBytes": 6476,
+      "prettyLines": 208,
+      "prettyBytes": 6822,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__geometries__RoundedBoxGeometry",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — geometries/RoundedBoxGeometry.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/EffectComposer.js",
+      "captureKind": "file",
+      "captureSha256": "4e079a5886152d7e529a59aef644e968ab4d32c6a33ce016b36bf29b2eac26f7",
+      "captureBytes": 8501,
+      "prettyLines": 337,
+      "prettyBytes": 8990,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__EffectComposer",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/EffectComposer.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/MaskPass.js",
+      "captureKind": "file",
+      "captureSha256": "7cd08eee9d5d6f5578beaddbdcbe9c384f6873810af27f22ab7db3ceeb127aa3",
+      "captureBytes": 4694,
+      "prettyLines": 183,
+      "prettyBytes": 4854,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__MaskPass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/MaskPass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/OutputPass.js",
+      "captureKind": "file",
+      "captureSha256": "02e4a261af34de71338185e9e87f0cbe5cba9115608d984363e1269dec1d2272",
+      "captureBytes": 4184,
+      "prettyLines": 150,
+      "prettyBytes": 4430,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__OutputPass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/OutputPass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/Pass.js",
+      "captureKind": "file",
+      "captureSha256": "444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5",
+      "captureBytes": 4218,
+      "prettyLines": 171,
+      "prettyBytes": 4340,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__Pass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/Pass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/RenderPass.js",
+      "captureKind": "file",
+      "captureSha256": "817f6c3cdcd0fd41515d112359ea0532568eefb5aabd3b33903957ebca1b8a6a",
+      "captureBytes": 4280,
+      "prettyLines": 179,
+      "prettyBytes": 4516,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__RenderPass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/RenderPass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/ShaderPass.js",
+      "captureKind": "file",
+      "captureSha256": "e2500a5913b26bbf5148ceaae644c6edcff06a18b01494ee37bf856353d2ab9d",
+      "captureBytes": 3228,
+      "prettyLines": 117,
+      "prettyBytes": 3367,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__ShaderPass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/ShaderPass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/SMAAPass.js",
+      "captureKind": "file",
+      "captureSha256": "1a96804b8cb33ba76a67f9a8e77f2d5e2bf47b1a5c9a8476901aa75e24acb85c",
+      "captureBytes": 50379,
+      "prettyLines": 215,
+      "prettyBytes": 50587,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__SMAAPass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/SMAAPass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js",
+      "captureKind": "file",
+      "captureSha256": "1158bb02f6467889aba19c1a788b9107054d7f6a558498b5e2152db5873bb859",
+      "captureBytes": 14921,
+      "prettyLines": 523,
+      "prettyBytes": 15475,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__postprocessing__UnrealBloomPass",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — postprocessing/UnrealBloomPass.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js",
+      "capture": "vendor/three/examples/jsm/shaders/CopyShader.js",
+      "captureKind": "file",
+      "captureSha256": "a33057d5ac91c43304c186ac0e8816e62bb2ed471d3a00ff3018dfd5c0389718",
+      "captureBytes": 729,
+      "prettyLines": 48,
+      "prettyBytes": 734,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__shaders__CopyShader",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — shaders/CopyShader.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js",
+      "capture": "vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js",
+      "captureKind": "file",
+      "captureSha256": "5044f780b6e6cf863947f64c36fe1587132f7fbe395ada863cd1e5f0388dcf1e",
+      "captureBytes": 1291,
+      "prettyLines": 62,
+      "prettyBytes": 1293,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__shaders__LuminosityHighPassShader",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — shaders/LuminosityHighPassShader.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js",
+      "capture": "vendor/three/examples/jsm/shaders/OutputShader.js",
+      "captureKind": "file",
+      "captureSha256": "353479f77a8d7e2629d49ccac9fc2f5dbfdda5442e0adf867b00377a2fcb0cb2",
+      "captureBytes": 1876,
+      "prettyLines": 99,
+      "prettyBytes": 1881,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__shaders__OutputShader",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — shaders/OutputShader.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js",
+      "capture": "vendor/three/examples/jsm/shaders/SMAAShader.js",
+      "captureKind": "file",
+      "captureSha256": "48ce320a6bf5c33806c4fa13ade7e3ab199f7856838d36b05ae82204db8a1c15",
+      "captureBytes": 15002,
+      "prettyLines": 471,
+      "prettyBytes": 15012,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__shaders__SMAAShader",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — shaders/SMAAShader.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js",
+      "capture": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js",
+      "captureKind": "file",
+      "captureSha256": "5c552223a9309883743b80538d6e9cdb45e3227f30d3ec56fb2c39b46e78d595",
+      "captureBytes": 37621,
+      "prettyLines": 1376,
+      "prettyBytes": 39627,
+      "prettyPasses": 1,
+      "idempotent": true,
+      "tag": "vendor__three__examples__jsm__utils__BufferGeometryUtils",
+      "slices": 0,
+      "derived": "readable only (vendor bundle, wholeFile)",
+      "what": "three.js addon — utils/BufferGeometryUtils.js (vendor)"
+    },
+    {
+      "sourceFile": "readable/index-inline-1.pretty.css",
+      "capture": "index.html",
+      "captureKind": "inline-style",
+      "captureByteStart": 574,
+      "captureByteEnd": 1223,
+      "captureSha256": "5b7cc088e366e3385bb9e732afb4aeb84f4cc9a4058d761a9ebb0e4691992339",
+      "captureBytes": 649,
+      "prettyLines": 47,
+      "prettyBytes": 691,
+      "prettySha256": "828ebf8b23199667eda59b63ce00f549c70057542374d261b5430f44b02924d7",
+      "tag": "index-inline-1",
+      "slices": 0,
+      "derived": "readable only (inline block, wholeFile)"
+    },
+    {
+      "sourceFile": "readable/index-inline-1.pretty.json",
+      "capture": "index.html",
+      "captureKind": "inline-importmap",
+      "captureByteStart": 1257,
+      "captureByteEnd": 1368,
+      "captureSha256": "8e1c3a913538de733662d71f5a87d8c269d504194fc3e07e38982016c4deaf32",
+      "captureBytes": 111,
+      "prettyLines": 6,
+      "prettyBytes": 126,
+      "prettySha256": "be5dcbbdf4aad4fc5c2251319c8cbe7b553e67196a0d8622ee6c12f963c9bdd8",
+      "tag": "index-inline-1",
+      "slices": 0,
+      "derived": "readable only (inline block, wholeFile)"
+    }
+  ],
+  "sections": [
+    {
+      "file": "src__main-01.js",
+      "title": "src__main 01 — audio",
+      "desc": "Lines 1-196. Markers: audio(13), renderer(10).",
+      "startLine": 1,
+      "endLine": 196,
+      "sourceFile": "readable/src__main.pretty.js"
+    },
+    {
+      "file": "src__main-02.js",
+      "title": "src__main 02 — hud",
+      "desc": "Lines 197-538. Markers: hud(20), best(14).",
+      "startLine": 197,
+      "endLine": 538,
+      "sourceFile": "readable/src__main.pretty.js"
+    },
+    {
+      "file": "src__main-03.js",
+      "title": "src__main 03 — hud",
+      "desc": "Lines 539-881. Markers: hud(33), code(23).",
+      "startLine": 539,
+      "endLine": 881,
+      "sourceFile": "readable/src__main.pretty.js"
+    },
+    {
+      "file": "src__main-04.js",
+      "title": "src__main 04 — player",
+      "desc": "Lines 882-1147. Markers: player(21), game(16).",
+      "startLine": 882,
+      "endLine": 1147,
+      "sourceFile": "readable/src__main.pretty.js"
+    },
+    {
+      "file": "src__main-05.js",
+      "title": "src__main 05 — game",
+      "desc": "Lines 1148-1244. Markers: game(9), player(8).",
+      "startLine": 1148,
+      "endLine": 1244,
+      "sourceFile": "readable/src__main.pretty.js"
+    },
+    {
+      "file": "src__audio-01.js",
+      "title": "src__audio 01 — math",
+      "desc": "Lines 1-335. Markers: math(34), amp(28).",
+      "startLine": 1,
+      "endLine": 335,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-02.js",
+      "title": "src__audio 02 — math",
+      "desc": "Lines 336-646. Markers: math(27), amp(19).",
+      "startLine": 336,
+      "endLine": 646,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-03.js",
+      "title": "src__audio 03 — amp",
+      "desc": "Lines 647-942. Markers: amp(40), burst(10).",
+      "startLine": 647,
+      "endLine": 942,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-04.js",
+      "title": "src__audio 04 — amp",
+      "desc": "Lines 943-1248. Markers: amp(62), dec(28).",
+      "startLine": 943,
+      "endLine": 1248,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-05.js",
+      "title": "src__audio 05 — dur",
+      "desc": "Lines 1249-1533. Markers: dur(24), amp(21).",
+      "startLine": 1249,
+      "endLine": 1533,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-06.js",
+      "title": "src__audio 06 — amp",
+      "desc": "Lines 1534-1869. Markers: amp(27), burst(17).",
+      "startLine": 1534,
+      "endLine": 1869,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-07.js",
+      "title": "src__audio 07 — amp",
+      "desc": "Lines 1870-2193. Markers: amp(12), dur(12).",
+      "startLine": 1870,
+      "endLine": 2193,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-08.js",
+      "title": "src__audio 08 — amp",
+      "desc": "Lines 2194-2535. Markers: amp(20), dur(13).",
+      "startLine": 2194,
+      "endLine": 2535,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-09.js",
+      "title": "src__audio 09 — amp",
+      "desc": "Lines 2536-2873. Markers: amp(15), cons(13).",
+      "startLine": 2536,
+      "endLine": 2873,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-10.js",
+      "title": "src__audio 10 — amp",
+      "desc": "Lines 2874-3214. Markers: amp(27), dur(14).",
+      "startLine": 2874,
+      "endLine": 3214,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-11.js",
+      "title": "src__audio 11 — amp",
+      "desc": "Lines 3215-3524. Markers: amp(21), chn(17).",
+      "startLine": 3215,
+      "endLine": 3524,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-12.js",
+      "title": "src__audio 12 — ironhide",
+      "desc": "Lines 3525-3584. Markers: ironhide(1), perk_idx(1).",
+      "startLine": 3525,
+      "endLine": 3584,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-13.js",
+      "title": "src__audio 13 — mtof",
+      "desc": "Lines 3585-3918. Markers: mtof(23), radio(10).",
+      "startLine": 3585,
+      "endLine": 3918,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-14.js",
+      "title": "src__audio 14 — go_ch",
+      "desc": "Lines 3919-3963. Markers: go_ch(1), go_mel(1).",
+      "startLine": 3919,
+      "endLine": 3963,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-15.js",
+      "title": "src__audio 15 — bar",
+      "desc": "Lines 3964-4311. Markers: bar(21), gain(16).",
+      "startLine": 3964,
+      "endLine": 4311,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-16.js",
+      "title": "src__audio 16 — math",
+      "desc": "Lines 4312-4592. Markers: math(10), sum(9).",
+      "startLine": 4312,
+      "endLine": 4592,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-17.js",
+      "title": "src__audio 17 — math",
+      "desc": "Lines 4593-4810. Markers: math(25), ctx(18).",
+      "startLine": 4593,
+      "endLine": 4810,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-18.js",
+      "title": "src__audio 18 — math",
+      "desc": "Lines 4811-5122. Markers: math(33), ctx(26).",
+      "startLine": 4811,
+      "endLine": 5122,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-19.js",
+      "title": "src__audio 19 — ctx",
+      "desc": "Oversized single declaration (kept whole). Lines 5123-5636. Markers: ctx(38), gain(24).",
+      "startLine": 5123,
+      "endLine": 5636,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__audio-20.js",
+      "title": "src__audio 20 — export",
+      "desc": "Lines 5637-5639. Markers: export(3), keys(2).",
+      "startLine": 5637,
+      "endLine": 5639,
+      "sourceFile": "readable/src__audio.pretty.js"
+    },
+    {
+      "file": "src__avatars-01.js",
+      "title": "src__avatars 01 — math",
+      "desc": "Lines 1-365. Markers: math(15), avatars(12).",
+      "startLine": 1,
+      "endLine": 365,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-02.js",
+      "title": "src__avatars 02 — base",
+      "desc": "Lines 366-613. Markers: base(10), dir(10).",
+      "startLine": 366,
+      "endLine": 613,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-03.js",
+      "title": "src__avatars 03 — math",
+      "desc": "Lines 614-918. Markers: math(32), push(20).",
+      "startLine": 614,
+      "endLine": 918,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-04.js",
+      "title": "src__avatars 04 — sstep",
+      "desc": "Lines 919-1233. Markers: sstep(24), math(15).",
+      "startLine": 919,
+      "endLine": 1233,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-05.js",
+      "title": "src__avatars 05 — math",
+      "desc": "Lines 1234-1436. Markers: math(37), gauss(31).",
+      "startLine": 1234,
+      "endLine": 1436,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-06.js",
+      "title": "src__avatars 06 — math",
+      "desc": "Lines 1437-1706. Markers: math(25), sstep(20).",
+      "startLine": 1437,
+      "endLine": 1706,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-07.js",
+      "title": "src__avatars 07 — skin",
+      "desc": "Lines 1707-2050. Markers: skin(24), col(23).",
+      "startLine": 1707,
+      "endLine": 2050,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-08.js",
+      "title": "src__avatars 08 — sstep",
+      "desc": "Lines 2051-2378. Markers: sstep(11), acc(10).",
+      "startLine": 2051,
+      "endLine": 2378,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-09.js",
+      "title": "src__avatars 09 — mul3",
+      "desc": "Lines 2379-2545. Markers: mul3(9), fbm(7).",
+      "startLine": 2379,
+      "endLine": 2545,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-10.js",
+      "title": "src__avatars 10 — top",
+      "desc": "Lines 2546-2889. Markers: top(37), mul3(22).",
+      "startLine": 2546,
+      "endLine": 2889,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-11.js",
+      "title": "src__avatars 11 — box",
+      "desc": "Lines 2890-3147. Markers: box(20), acc(17).",
+      "startLine": 2890,
+      "endLine": 3147,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-12.js",
+      "title": "src__avatars 12 — head",
+      "desc": "Lines 3148-3461. Markers: head(17), math(15).",
+      "startLine": 3148,
+      "endLine": 3461,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-13.js",
+      "title": "src__avatars 13 — acc",
+      "desc": "Lines 3462-3801. Markers: acc(15), three(15).",
+      "startLine": 3462,
+      "endLine": 3801,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-14.js",
+      "title": "src__avatars 14 — owner",
+      "desc": "Lines 3802-4114. Markers: owner(25), clone(24).",
+      "startLine": 3802,
+      "endLine": 4114,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-15.js",
+      "title": "src__avatars 15 — math",
+      "desc": "Lines 4115-4362. Markers: math(28), out(14).",
+      "startLine": 4115,
+      "endLine": 4362,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-16.js",
+      "title": "src__avatars 16 — copy",
+      "desc": "Oversized single declaration (kept whole). Lines 4363-6722. Markers: copy(181), math(72).",
+      "startLine": 4363,
+      "endLine": 6722,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-17.js",
+      "title": "src__avatars 17 — addcolorstop",
+      "desc": "Lines 6723-6842. Markers: addcolorstop(12), half(5).",
+      "startLine": 6723,
+      "endLine": 6842,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__avatars-18.js",
+      "title": "src__avatars 18 — three",
+      "desc": "Lines 6843-7175. Markers: three(24), slot(17).",
+      "startLine": 6843,
+      "endLine": 7175,
+      "sourceFile": "readable/src__avatars.pretty.js"
+    },
+    {
+      "file": "src__fx-01.js",
+      "title": "src__fx 01 — math",
+      "desc": "Lines 1-320. Markers: math(37), img(22).",
+      "startLine": 1,
+      "endLine": 320,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-02.js",
+      "title": "src__fx 02 — math",
+      "desc": "Lines 321-497. Markers: math(57), exp(23).",
+      "startLine": 321,
+      "endLine": 497,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-03.js",
+      "title": "src__fx 03 — math",
+      "desc": "Oversized single declaration (kept whole). Lines 498-854. Markers: math(36), sstep(27).",
+      "startLine": 498,
+      "endLine": 854,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-04.js",
+      "title": "src__fx 04 — size",
+      "desc": "Lines 855-1009. Markers: size(9), addcolorstop(5).",
+      "startLine": 855,
+      "endLine": 1009,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-05.js",
+      "title": "src__fx 05 — three",
+      "desc": "Lines 1010-1272. Markers: three(19), age(9).",
+      "startLine": 1010,
+      "endLine": 1272,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-06.js",
+      "title": "src__fx 06 — max",
+      "desc": "Lines 1273-1616. Markers: max(21), mesh(19).",
+      "startLine": 1273,
+      "endLine": 1616,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-07.js",
+      "title": "src__fx 07 — gold",
+      "desc": "Lines 1617-1961. Markers: gold(33), three(33).",
+      "startLine": 1617,
+      "endLine": 1961,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__fx-08.js",
+      "title": "src__fx 08 — pos",
+      "desc": "Oversized single declaration (kept whole). Lines 1962-3844. Markers: pos(85), col(54).",
+      "startLine": 1962,
+      "endLine": 3844,
+      "sourceFile": "readable/src__fx.pretty.js"
+    },
+    {
+      "file": "src__game-01.js",
+      "title": "src__game 01 — host",
+      "desc": "Lines 1-59. Markers: host(5), the(5).",
+      "startLine": 1,
+      "endLine": 59,
+      "sourceFile": "readable/src__game.pretty.js"
+    },
+    {
+      "file": "src__game-02.js",
+      "title": "src__game 02 — pos",
+      "desc": "Oversized single declaration (kept whole). Lines 60-2240. Markers: pos(99), phase(71).",
+      "startLine": 60,
+      "endLine": 2240,
+      "sourceFile": "readable/src__game.pretty.js"
+    },
+    {
+      "file": "src__hud-01.js",
+      "title": "src__hud 01 — math",
+      "desc": "Lines 1-312. Markers: math(25), size(17).",
+      "startLine": 1,
+      "endLine": 312,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__hud-02.js",
+      "title": "src__hud 02 — opts",
+      "desc": "Lines 313-469. Markers: opts(7), push(7).",
+      "startLine": 313,
+      "endLine": 469,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__hud-03.js",
+      "title": "src__hud 03 — css",
+      "desc": "Lines 470-780. Markers: css(1), phase(1).",
+      "startLine": 470,
+      "endLine": 780,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__hud-04.js",
+      "title": "src__hud 04 — replace",
+      "desc": "Lines 781-1119. Markers: replace(3), slot_colors(3).",
+      "startLine": 781,
+      "endLine": 1119,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__hud-05.js",
+      "title": "src__hud 05 — key",
+      "desc": "Lines 1120-1190. Markers: key(6), fmt(5).",
+      "startLine": 1120,
+      "endLine": 1190,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__hud-06.js",
+      "title": "src__hud 06 — classlist",
+      "desc": "Oversized single declaration (kept whole). Lines 1191-3169. Markers: classlist(112), nav(66).",
+      "startLine": 1191,
+      "endLine": 3169,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__hud-07.js",
+      "title": "src__hud 07 — export",
+      "desc": "Lines 3170-3170. Markers: export(1), hud(1).",
+      "startLine": 3170,
+      "endLine": 3170,
+      "sourceFile": "readable/src__hud.pretty.js"
+    },
+    {
+      "file": "src__level-01.js",
+      "title": "src__level 01 — math",
+      "desc": "Lines 1-131. Markers: math(9), attributes(7).",
+      "startLine": 1,
+      "endLine": 131,
+      "sourceFile": "readable/src__level.pretty.js"
+    },
+    {
+      "file": "src__level-02.js",
+      "title": "src__level 02 — three",
+      "desc": "Oversized single declaration (kept whole). Lines 132-2280. Markers: three(103), math(96).",
+      "startLine": 132,
+      "endLine": 2280,
+      "sourceFile": "readable/src__level.pretty.js"
+    },
+    {
+      "file": "src__level-03.js",
+      "title": "src__level 03 — math",
+      "desc": "Lines 2281-2578. Markers: math(43), heap(19).",
+      "startLine": 2281,
+      "endLine": 2578,
+      "sourceFile": "readable/src__level.pretty.js"
+    },
+    {
+      "file": "src__level-04.js",
+      "title": "src__level 04 — three",
+      "desc": "Oversized single declaration (kept whole). Lines 2579-4318. Markers: three(111), math(74).",
+      "startLine": 2579,
+      "endLine": 4318,
+      "sourceFile": "readable/src__level.pretty.js"
+    },
+    {
+      "file": "src__level-05.js",
+      "title": "src__level 05 — math",
+      "desc": "Oversized single declaration (kept whole). Lines 4319-5765. Markers: math(111), rng(89).",
+      "startLine": 4319,
+      "endLine": 5765,
+      "sourceFile": "readable/src__level.pretty.js"
+    },
+    {
+      "file": "src__level-06.js",
+      "title": "src__level 06 — three",
+      "desc": "Oversized single declaration (kept whole). Lines 5766-6432. Markers: three(59), math(34).",
+      "startLine": 5766,
+      "endLine": 6432,
+      "sourceFile": "readable/src__level.pretty.js"
+    },
+    {
+      "file": "src__net-01.js",
+      "title": "src__net 01 — neterror",
+      "desc": "Lines 1-371. Markers: neterror(19), peer(18).",
+      "startLine": 1,
+      "endLine": 371,
+      "sourceFile": "readable/src__net.pretty.js"
+    },
+    {
+      "file": "src__net-02.js",
+      "title": "src__net 02 — peer",
+      "desc": "Lines 372-696. Markers: peer(30), conn(27).",
+      "startLine": 372,
+      "endLine": 696,
+      "sourceFile": "readable/src__net.pretty.js"
+    },
+    {
+      "file": "src__net-03.js",
+      "title": "src__net 03 — host",
+      "desc": "Lines 697-960. Markers: host(10), the(10).",
+      "startLine": 697,
+      "endLine": 960,
+      "sourceFile": "readable/src__net.pretty.js"
+    },
+    {
+      "file": "src__net-04.js",
+      "title": "src__net 04 — reason",
+      "desc": "Oversized single declaration (kept whole). Lines 961-2164. Markers: reason(42), roster(40).",
+      "startLine": 961,
+      "endLine": 2164,
+      "sourceFile": "readable/src__net.pretty.js"
+    },
+    {
+      "file": "src__net-05.js",
+      "title": "src__net 05 — time",
+      "desc": "Lines 2165-2274. Markers: time(21), state(16).",
+      "startLine": 2165,
+      "endLine": 2274,
+      "sourceFile": "readable/src__net.pretty.js"
+    },
+    {
+      "file": "src__player-01.js",
+      "title": "src__player 01 — sprint",
+      "desc": "Lines 1-29. Markers: sprint(4), full(2).",
+      "startLine": 1,
+      "endLine": 29,
+      "sourceFile": "readable/src__player.pretty.js"
+    },
+    {
+      "file": "src__player-02.js",
+      "title": "src__player 02 — math",
+      "desc": "Oversized single declaration (kept whole). Lines 30-410. Markers: math(36), vel(29).",
+      "startLine": 30,
+      "endLine": 410,
+      "sourceFile": "readable/src__player.pretty.js"
+    },
+    {
+      "file": "src__post-01.js",
+      "title": "src__post 01 — composer",
+      "desc": "Lines 1-211. Markers: composer(12), math(11).",
+      "startLine": 1,
+      "endLine": 211,
+      "sourceFile": "readable/src__post.pretty.js"
+    },
+    {
+      "file": "src__textures-01.js",
+      "title": "src__textures 01 — maps",
+      "desc": "Lines 1-73. Markers: maps(3), three(3).",
+      "startLine": 1,
+      "endLine": 73,
+      "sourceFile": "readable/src__textures.pretty.js"
+    },
+    {
+      "file": "src__textures-02.js",
+      "title": "src__textures 02 — mix",
+      "desc": "Oversized single declaration (kept whole). Lines 74-3246. Markers: mix(220), math(137).",
+      "startLine": 74,
+      "endLine": 3246,
+      "sourceFile": "readable/src__textures.pretty.js"
+    },
+    {
+      "file": "src__textures-03.js",
+      "title": "src__textures 03 — three",
+      "desc": "Lines 3247-3543. Markers: three(32), out(13).",
+      "startLine": 3247,
+      "endLine": 3543,
+      "sourceFile": "readable/src__textures.pretty.js"
+    },
+    {
+      "file": "src__textures-04.js",
+      "title": "src__textures 04 — out",
+      "desc": "Lines 3544-3756. Markers: out(18), base(11).",
+      "startLine": 3544,
+      "endLine": 3756,
+      "sourceFile": "readable/src__textures.pretty.js"
+    },
+    {
+      "file": "src__weapons-01.js",
+      "title": "src__weapons 01 — damage",
+      "desc": "Lines 1-353. Markers: damage(21), headmul(16).",
+      "startLine": 1,
+      "endLine": 353,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-02.js",
+      "title": "src__weapons 02 — parent",
+      "desc": "Lines 354-700. Markers: parent(26), mat(20).",
+      "startLine": 354,
+      "endLine": 700,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-03.js",
+      "title": "src__weapons 03 — dark",
+      "desc": "Lines 701-990. Markers: dark(17), slide(11).",
+      "startLine": 701,
+      "endLine": 990,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-04.js",
+      "title": "src__weapons 04 — main",
+      "desc": "Lines 991-1333. Markers: main(24), box(18).",
+      "startLine": 991,
+      "endLine": 1333,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-05.js",
+      "title": "src__weapons 05 — main",
+      "desc": "Lines 1334-1591. Markers: main(15), marker(8).",
+      "startLine": 1334,
+      "endLine": 1591,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-06.js",
+      "title": "src__weapons 06 — main",
+      "desc": "Lines 1592-1820. Markers: main(16), box(12).",
+      "startLine": 1592,
+      "endLine": 1820,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-07.js",
+      "title": "src__weapons 07 — main",
+      "desc": "Lines 1821-2062. Markers: main(12), bevel(10).",
+      "startLine": 1821,
+      "endLine": 2062,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-08.js",
+      "title": "src__weapons 08 — park",
+      "desc": "Lines 2063-2405. Markers: park(17), bevel(14).",
+      "startLine": 2063,
+      "endLine": 2405,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-09.js",
+      "title": "src__weapons 09 — box",
+      "desc": "Lines 2406-2732. Markers: box(23), park(23).",
+      "startLine": 2406,
+      "endLine": 2732,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-10.js",
+      "title": "src__weapons 10 — brass",
+      "desc": "Lines 2733-3081. Markers: brass(18), the(11).",
+      "startLine": 2733,
+      "endLine": 3081,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-11.js",
+      "title": "src__weapons 11 — clone",
+      "desc": "Lines 3082-3371. Markers: clone(15), three(14).",
+      "startLine": 3082,
+      "endLine": 3371,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-12.js",
+      "title": "src__weapons 12 — out",
+      "desc": "Lines 3372-3665. Markers: out(16), keys(15).",
+      "startLine": 3372,
+      "endLine": 3665,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-13.js",
+      "title": "src__weapons 13 — dur",
+      "desc": "Oversized single declaration (kept whole). Lines 3666-4047. Markers: dur(14), gun(14).",
+      "startLine": 3666,
+      "endLine": 4047,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-14.js",
+      "title": "src__weapons 14 — drift",
+      "desc": "Lines 4048-4324. Markers: drift(11), first(10).",
+      "startLine": 4048,
+      "endLine": 4324,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-15.js",
+      "title": "src__weapons 15 — three",
+      "desc": "Lines 4325-4659. Markers: three(19), math(17).",
+      "startLine": 4325,
+      "endLine": 4659,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__weapons-16.js",
+      "title": "src__weapons 16 — math",
+      "desc": "Oversized single declaration (kept whole). Lines 4660-6909. Markers: math(77), cam(60).",
+      "startLine": 4660,
+      "endLine": 6909,
+      "sourceFile": "readable/src__weapons.pretty.js"
+    },
+    {
+      "file": "src__zombies-01.js",
+      "title": "src__zombies 01 — geo",
+      "desc": "Lines 1-312. Markers: geo(23), math(17).",
+      "startLine": 1,
+      "endLine": 312,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-02.js",
+      "title": "src__zombies 02 — math",
+      "desc": "Lines 313-661. Markers: math(25), pos(15).",
+      "startLine": 313,
+      "endLine": 661,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-03.js",
+      "title": "src__zombies 03 — seed",
+      "desc": "Lines 662-678. Markers: seed(3), fbm(2).",
+      "startLine": 662,
+      "endLine": 678,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-04.js",
+      "title": "src__zombies 04 — math",
+      "desc": "Oversized single declaration (kept whole). Lines 679-1798. Markers: math(63), add(49).",
+      "startLine": 679,
+      "endLine": 1798,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-05.js",
+      "title": "src__zombies 05 — color",
+      "desc": "Lines 1799-2058. Markers: color(9), chest(8).",
+      "startLine": 1799,
+      "endLine": 2058,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-06.js",
+      "title": "src__zombies 06 — chest",
+      "desc": "Lines 2059-2406. Markers: chest(18), head(18).",
+      "startLine": 2059,
+      "endLine": 2406,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-07.js",
+      "title": "src__zombies 07 — math",
+      "desc": "Lines 2407-2465. Markers: math(10), setb(7).",
+      "startLine": 2407,
+      "endLine": 2465,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-08.js",
+      "title": "src__zombies 08 — math",
+      "desc": "Oversized single declaration (kept whole). Lines 2466-4661. Markers: math(153), root(56).",
+      "startLine": 2466,
+      "endLine": 4661,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "src__zombies-09.js",
+      "title": "src__zombies 09 — export",
+      "desc": "Lines 4662-4663. Markers: export(2), bone_pos(1).",
+      "startLine": 4662,
+      "endLine": 4663,
+      "sourceFile": "readable/src__zombies.pretty.js"
+    },
+    {
+      "file": "vendor__peerjs__peerjs.min-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__peerjs__peerjs.min — PeerJS WebRTC data-channel UMD bundle (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-4152 of readable/vendor__peerjs__peerjs.min.pretty.js: Third-party library captured byte-exact from the origin (PeerJS WebRTC data-channel UMD bundle (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 4152,
+      "sourceFile": "readable/vendor__peerjs__peerjs.min.pretty.js"
+    },
+    {
+      "file": "vendor__three__build__three.core-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__build__three.core — three.js r185 build (three.core.js) (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-56142 of readable/vendor__three__build__three.core.pretty.js: Third-party library captured byte-exact from the origin (three.js r185 build (three.core.js) (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 56142,
+      "sourceFile": "readable/vendor__three__build__three.core.pretty.js"
+    },
+    {
+      "file": "vendor__three__build__three.module-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__build__three.module — three.js r185 build (three.module.js) (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-19601 of readable/vendor__three__build__three.module.pretty.js: Third-party library captured byte-exact from the origin (three.js r185 build (three.module.js) (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 19601,
+      "sourceFile": "readable/vendor__three__build__three.module.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__geometries__RoundedBoxGeometry-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__geometries__RoundedBoxGeometry — three.js addon — geometries/RoundedBoxGeometry.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-208 of readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — geometries/RoundedBoxGeometry.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 208,
+      "sourceFile": "readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__EffectComposer-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__EffectComposer — three.js addon — postprocessing/EffectComposer.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-337 of readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/EffectComposer.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 337,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__MaskPass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__MaskPass — three.js addon — postprocessing/MaskPass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-183 of readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/MaskPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 183,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__OutputPass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__OutputPass — three.js addon — postprocessing/OutputPass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-150 of readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/OutputPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 150,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__Pass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__Pass — three.js addon — postprocessing/Pass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-171 of readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/Pass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 171,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__RenderPass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__RenderPass — three.js addon — postprocessing/RenderPass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-179 of readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/RenderPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 179,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__ShaderPass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__ShaderPass — three.js addon — postprocessing/ShaderPass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-117 of readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/ShaderPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 117,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__SMAAPass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__SMAAPass — three.js addon — postprocessing/SMAAPass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-215 of readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/SMAAPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 215,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__postprocessing__UnrealBloomPass-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__postprocessing__UnrealBloomPass — three.js addon — postprocessing/UnrealBloomPass.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-523 of readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/UnrealBloomPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 523,
+      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__shaders__CopyShader-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__shaders__CopyShader — three.js addon — shaders/CopyShader.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-48 of readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/CopyShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 48,
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__shaders__LuminosityHighPassShader-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__shaders__LuminosityHighPassShader — three.js addon — shaders/LuminosityHighPassShader.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-62 of readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/LuminosityHighPassShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 62,
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__shaders__OutputShader-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__shaders__OutputShader — three.js addon — shaders/OutputShader.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-99 of readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/OutputShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 99,
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__shaders__SMAAShader-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__shaders__SMAAShader — three.js addon — shaders/SMAAShader.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-471 of readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/SMAAShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 471,
+      "sourceFile": "readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js"
+    },
+    {
+      "file": "vendor__three__examples__jsm__utils__BufferGeometryUtils-vendor.js",
+      "wholeFile": true,
+      "title": "vendor__three__examples__jsm__utils__BufferGeometryUtils — three.js addon — utils/BufferGeometryUtils.js (vendor) (whole-file, never sliced)",
+      "desc": "Lines 1-1376 of readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — utils/BufferGeometryUtils.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "note": "whole-file (vendor rule): indexed in readable/, never sliced",
+      "startLine": 1,
+      "endLine": 1376,
+      "sourceFile": "readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js"
+    },
+    {
+      "file": "index-inline-1.css",
+      "wholeFile": true,
+      "title": "index-inline-1 — inline style block (whole-file, never sliced)",
+      "desc": "Lines 1-47 of readable/index-inline-1.pretty.css. Whole-file: the entry document's inline style block (649 B at bytes 574-1223 of index.html) is indexed whole and never sliced.",
+      "note": "whole-file (entry inline style block, not sliced)",
+      "startLine": 1,
+      "endLine": 47,
+      "sourceFile": "readable/index-inline-1.pretty.css"
+    },
+    {
+      "file": "index-inline-1.json",
+      "wholeFile": true,
+      "title": "index-inline-1 — inline importmap block (whole-file, never sliced)",
+      "desc": "Lines 1-6 of readable/index-inline-1.pretty.json. Whole-file: the entry document's inline importmap block (111 B at bytes 1257-1368 of index.html) is indexed whole and never sliced.",
+      "note": "whole-file (entry inline importmap block, not sliced)",
+      "startLine": 1,
+      "endLine": 6,
+      "sourceFile": "readable/index-inline-1.pretty.json"
+    }
+  ],
+  "notRendered": []
+}
