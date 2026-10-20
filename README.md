@@ -98,6 +98,7 @@ into a solo round; `?net=local` forces the local transport).
 ```
 node tools/verify.mjs     # re-hash the capture against the manifest
 node tools/audit.js       # derived-layer integrity gate
+node tools/check-exports.mjs   # the derived layer still exports every public name
 ```
 
 Last run: `31 files checked, 0 problems` and `AUDIT PASS`.
