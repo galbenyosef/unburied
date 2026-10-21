@@ -1,6 +1,7 @@
 {
   "project": "unburied",
   "kind": "statement-aligned-slices",
+  "derivedRoot": ".",
   "defaultFile": "src/src__main-01.js",
   "note": "UNBURIED — Blackwald Bunker (https://unburied.inkwave.workers.dev/) is capture-class: a hand-written ES module graph served at the origin root by a Cloudflare Workers static host (no bundler in the app layer). §0.4 fork-over-mirror was checked on 2026-10-12 — neither the page nor its JS references a public source repo (zero github.com/gitlab.com references in the capture), so the mirror stands. Derived pipeline: capture → pinned prettier 3.9.6 (module API, default options, single pass verified idempotent — never the CLI: it respects .gitignore and can silently echo its input) → readable/<name>.pretty.js per captured JS file (capture-relative name, nested dirs flattened with __; every pretty provably NOT byte-identical to its capture source) → statement-aligned slices src/<name>-NN.js of every APP module (top-level declaration boundaries only, ~250-350 line windows; oversized single declarations stay whole) with an exact 2-line provenance header. Every slice parses standalone under `node --input-type=module --check -` and round-trips byte-exact to its recorded readable line range. Layout divergence (README): the origin serves the app under /src/ and the vendored libraries under /vendor/, so the byte-exact capture lives at src/*.js and vendor/** at the repo root — derived slices share src/ with the captured modules and are never listed in .upstream/manifest.json. Vendor rule — wholeFile sections, never sliced: everything under vendor/ (three.js r185 build three.core/three.module, the jsm addons the app imports, the PeerJS UMD bundle). Inline <script>/<style> scan: index.html carries an inline importmap and an inline <style> block — twins readable/index-inline-N.pretty.{json,css} + readable/index-inline-map.json with byte ranges + sha256. Non-standalone parts are skipped sections, indexed but never sliced: a pure trailing export {…} table where one exists. Identifiers in src/ are the app's own declared names — no rename campaign applies (PLAN §5) since the served code is not minified. Capture bytes are untouched by everything above; re-cut with `node tools/derive.mjs` after any capture refresh. `node tools/audit.js` is the gate.",
   "renderOptions": {
@@ -202,7 +203,7 @@
       "derived": "readable + 9 statement-aligned slice(s)"
     },
     {
-      "sourceFile": "readable/vendor__peerjs__peerjs.min.pretty.js",
+      "sourceFile": "vendor/peerjs/peerjs.min.js",
       "capture": "vendor/peerjs/peerjs.min.js",
       "captureKind": "file",
       "captureSha256": "7604d8c31bec4f134b0d15c2d80b1d095ea18af005354f439f14291fcd7b4168",
@@ -217,7 +218,7 @@
       "what": "PeerJS WebRTC data-channel UMD bundle (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__build__three.core.pretty.js",
+      "sourceFile": "vendor/three/build/three.core.js",
       "capture": "vendor/three/build/three.core.js",
       "captureKind": "file",
       "captureSha256": "3718df126d69c125362a03340913204470d8c50238605150e57f808840fb7759",
@@ -232,7 +233,7 @@
       "what": "three.js r185 build (three.core.js) (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__build__three.module.pretty.js",
+      "sourceFile": "vendor/three/build/three.module.js",
       "capture": "vendor/three/build/three.module.js",
       "captureKind": "file",
       "captureSha256": "bbf5ed13fe4373f5bd38b14ea8e62e9f157327da5638edc6d3863e08b167c9c7",
@@ -247,7 +248,7 @@
       "what": "three.js r185 build (three.module.js) (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js",
       "capture": "vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js",
       "captureKind": "file",
       "captureSha256": "c1b7c9bd2cddff2e3f3a0723f618a3d364a47450e3d25771d21faed88410bec8",
@@ -262,7 +263,7 @@
       "what": "three.js addon — geometries/RoundedBoxGeometry.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/EffectComposer.js",
       "capture": "vendor/three/examples/jsm/postprocessing/EffectComposer.js",
       "captureKind": "file",
       "captureSha256": "4e079a5886152d7e529a59aef644e968ab4d32c6a33ce016b36bf29b2eac26f7",
@@ -277,7 +278,7 @@
       "what": "three.js addon — postprocessing/EffectComposer.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/MaskPass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/MaskPass.js",
       "captureKind": "file",
       "captureSha256": "7cd08eee9d5d6f5578beaddbdcbe9c384f6873810af27f22ab7db3ceeb127aa3",
@@ -292,7 +293,7 @@
       "what": "three.js addon — postprocessing/MaskPass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/OutputPass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/OutputPass.js",
       "captureKind": "file",
       "captureSha256": "02e4a261af34de71338185e9e87f0cbe5cba9115608d984363e1269dec1d2272",
@@ -307,7 +308,7 @@
       "what": "three.js addon — postprocessing/OutputPass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/Pass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/Pass.js",
       "captureKind": "file",
       "captureSha256": "444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5",
@@ -322,7 +323,7 @@
       "what": "three.js addon — postprocessing/Pass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/RenderPass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/RenderPass.js",
       "captureKind": "file",
       "captureSha256": "817f6c3cdcd0fd41515d112359ea0532568eefb5aabd3b33903957ebca1b8a6a",
@@ -337,7 +338,7 @@
       "what": "three.js addon — postprocessing/RenderPass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/ShaderPass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/ShaderPass.js",
       "captureKind": "file",
       "captureSha256": "e2500a5913b26bbf5148ceaae644c6edcff06a18b01494ee37bf856353d2ab9d",
@@ -352,7 +353,7 @@
       "what": "three.js addon — postprocessing/ShaderPass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/SMAAPass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/SMAAPass.js",
       "captureKind": "file",
       "captureSha256": "1a96804b8cb33ba76a67f9a8e77f2d5e2bf47b1a5c9a8476901aa75e24acb85c",
@@ -367,7 +368,7 @@
       "what": "three.js addon — postprocessing/SMAAPass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js",
       "capture": "vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js",
       "captureKind": "file",
       "captureSha256": "1158bb02f6467889aba19c1a788b9107054d7f6a558498b5e2152db5873bb859",
@@ -382,7 +383,7 @@
       "what": "three.js addon — postprocessing/UnrealBloomPass.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/shaders/CopyShader.js",
       "capture": "vendor/three/examples/jsm/shaders/CopyShader.js",
       "captureKind": "file",
       "captureSha256": "a33057d5ac91c43304c186ac0e8816e62bb2ed471d3a00ff3018dfd5c0389718",
@@ -397,7 +398,7 @@
       "what": "three.js addon — shaders/CopyShader.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js",
       "capture": "vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js",
       "captureKind": "file",
       "captureSha256": "5044f780b6e6cf863947f64c36fe1587132f7fbe395ada863cd1e5f0388dcf1e",
@@ -412,7 +413,7 @@
       "what": "three.js addon — shaders/LuminosityHighPassShader.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/shaders/OutputShader.js",
       "capture": "vendor/three/examples/jsm/shaders/OutputShader.js",
       "captureKind": "file",
       "captureSha256": "353479f77a8d7e2629d49ccac9fc2f5dbfdda5442e0adf867b00377a2fcb0cb2",
@@ -427,7 +428,7 @@
       "what": "three.js addon — shaders/OutputShader.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/shaders/SMAAShader.js",
       "capture": "vendor/three/examples/jsm/shaders/SMAAShader.js",
       "captureKind": "file",
       "captureSha256": "48ce320a6bf5c33806c4fa13ade7e3ab199f7856838d36b05ae82204db8a1c15",
@@ -442,7 +443,7 @@
       "what": "three.js addon — shaders/SMAAShader.js (vendor)"
     },
     {
-      "sourceFile": "readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js",
+      "sourceFile": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js",
       "capture": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js",
       "captureKind": "file",
       "captureSha256": "5c552223a9309883743b80538d6e9cdb45e3227f30d3ec56fb2c39b46e78d595",
@@ -1313,174 +1314,191 @@
       "sourceFile": "readable/src__zombies.pretty.js"
     },
     {
-      "file": "vendor__peerjs__peerjs.min-vendor.js",
+      "file": "readable/vendor__peerjs__peerjs.min.pretty.js",
       "wholeFile": true,
       "title": "vendor__peerjs__peerjs.min — PeerJS WebRTC data-channel UMD bundle (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-4152 of readable/vendor__peerjs__peerjs.min.pretty.js: Third-party library captured byte-exact from the origin (PeerJS WebRTC data-channel UMD bundle (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-8 of vendor/peerjs/peerjs.min.js: Third-party library captured byte-exact from the origin (PeerJS WebRTC data-channel UMD bundle (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__peerjs__peerjs.min.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 4152,
-      "sourceFile": "readable/vendor__peerjs__peerjs.min.pretty.js"
+      "endLine": 8,
+      "sourceFile": "vendor/peerjs/peerjs.min.js",
+      "capture": "vendor/peerjs/peerjs.min.js"
     },
     {
-      "file": "vendor__three__build__three.core-vendor.js",
+      "file": "readable/vendor__three__build__three.core.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__build__three.core — three.js r185 build (three.core.js) (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-56142 of readable/vendor__three__build__three.core.pretty.js: Third-party library captured byte-exact from the origin (three.js r185 build (three.core.js) (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-60007 of vendor/three/build/three.core.js: Third-party library captured byte-exact from the origin (three.js r185 build (three.core.js) (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__build__three.core.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 56142,
-      "sourceFile": "readable/vendor__three__build__three.core.pretty.js"
+      "endLine": 60007,
+      "sourceFile": "vendor/three/build/three.core.js",
+      "capture": "vendor/three/build/three.core.js"
     },
     {
-      "file": "vendor__three__build__three.module-vendor.js",
+      "file": "readable/vendor__three__build__three.module.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__build__three.module — three.js r185 build (three.module.js) (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-19601 of readable/vendor__three__build__three.module.pretty.js: Third-party library captured byte-exact from the origin (three.js r185 build (three.module.js) (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-19610 of vendor/three/build/three.module.js: Third-party library captured byte-exact from the origin (three.js r185 build (three.module.js) (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__build__three.module.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 19601,
-      "sourceFile": "readable/vendor__three__build__three.module.pretty.js"
+      "endLine": 19610,
+      "sourceFile": "vendor/three/build/three.module.js",
+      "capture": "vendor/three/build/three.module.js"
     },
     {
-      "file": "vendor__three__examples__jsm__geometries__RoundedBoxGeometry-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__geometries__RoundedBoxGeometry — three.js addon — geometries/RoundedBoxGeometry.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-208 of readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — geometries/RoundedBoxGeometry.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-216 of vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js: Third-party library captured byte-exact from the origin (three.js addon — geometries/RoundedBoxGeometry.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 208,
-      "sourceFile": "readable/vendor__three__examples__jsm__geometries__RoundedBoxGeometry.pretty.js"
+      "endLine": 216,
+      "sourceFile": "vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js",
+      "capture": "vendor/three/examples/jsm/geometries/RoundedBoxGeometry.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__EffectComposer-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__EffectComposer — three.js addon — postprocessing/EffectComposer.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-337 of readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/EffectComposer.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-365 of vendor/three/examples/jsm/postprocessing/EffectComposer.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/EffectComposer.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 337,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__EffectComposer.pretty.js"
+      "endLine": 365,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/EffectComposer.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/EffectComposer.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__MaskPass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__MaskPass — three.js addon — postprocessing/MaskPass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-183 of readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/MaskPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-195 of vendor/three/examples/jsm/postprocessing/MaskPass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/MaskPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 183,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__MaskPass.pretty.js"
+      "endLine": 195,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/MaskPass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/MaskPass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__OutputPass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__OutputPass — three.js addon — postprocessing/OutputPass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-150 of readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/OutputPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-148 of vendor/three/examples/jsm/postprocessing/OutputPass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/OutputPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 150,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__OutputPass.pretty.js"
+      "endLine": 148,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/OutputPass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/OutputPass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__Pass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__Pass — three.js addon — postprocessing/Pass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-171 of readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/Pass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-191 of vendor/three/examples/jsm/postprocessing/Pass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/Pass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 171,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__Pass.pretty.js"
+      "endLine": 191,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/Pass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/Pass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__RenderPass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__RenderPass — three.js addon — postprocessing/RenderPass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-179 of readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/RenderPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-193 of vendor/three/examples/jsm/postprocessing/RenderPass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/RenderPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 179,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__RenderPass.pretty.js"
+      "endLine": 193,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/RenderPass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/RenderPass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__ShaderPass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__ShaderPass — three.js addon — postprocessing/ShaderPass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-117 of readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/ShaderPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-135 of vendor/three/examples/jsm/postprocessing/ShaderPass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/ShaderPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 117,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__ShaderPass.pretty.js"
+      "endLine": 135,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/ShaderPass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/ShaderPass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__SMAAPass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__SMAAPass — three.js addon — postprocessing/SMAAPass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-215 of readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/SMAAPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-230 of vendor/three/examples/jsm/postprocessing/SMAAPass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/SMAAPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 215,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__SMAAPass.pretty.js"
+      "endLine": 230,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/SMAAPass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/SMAAPass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__postprocessing__UnrealBloomPass-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__postprocessing__UnrealBloomPass — three.js addon — postprocessing/UnrealBloomPass.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-523 of readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/UnrealBloomPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-524 of vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js: Third-party library captured byte-exact from the origin (three.js addon — postprocessing/UnrealBloomPass.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 523,
-      "sourceFile": "readable/vendor__three__examples__jsm__postprocessing__UnrealBloomPass.pretty.js"
+      "endLine": 524,
+      "sourceFile": "vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js",
+      "capture": "vendor/three/examples/jsm/postprocessing/UnrealBloomPass.js"
     },
     {
-      "file": "vendor__three__examples__jsm__shaders__CopyShader-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__shaders__CopyShader — three.js addon — shaders/CopyShader.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-48 of readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/CopyShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-52 of vendor/three/examples/jsm/shaders/CopyShader.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/CopyShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 48,
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__CopyShader.pretty.js"
+      "endLine": 52,
+      "sourceFile": "vendor/three/examples/jsm/shaders/CopyShader.js",
+      "capture": "vendor/three/examples/jsm/shaders/CopyShader.js"
     },
     {
-      "file": "vendor__three__examples__jsm__shaders__LuminosityHighPassShader-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__shaders__LuminosityHighPassShader — three.js addon — shaders/LuminosityHighPassShader.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-62 of readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/LuminosityHighPassShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-68 of vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/LuminosityHighPassShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 62,
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__LuminosityHighPassShader.pretty.js"
+      "endLine": 68,
+      "sourceFile": "vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js",
+      "capture": "vendor/three/examples/jsm/shaders/LuminosityHighPassShader.js"
     },
     {
-      "file": "vendor__three__examples__jsm__shaders__OutputShader-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__shaders__OutputShader — three.js addon — shaders/OutputShader.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-99 of readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/OutputShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-103 of vendor/three/examples/jsm/shaders/OutputShader.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/OutputShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 99,
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__OutputShader.pretty.js"
+      "endLine": 103,
+      "sourceFile": "vendor/three/examples/jsm/shaders/OutputShader.js",
+      "capture": "vendor/three/examples/jsm/shaders/OutputShader.js"
     },
     {
-      "file": "vendor__three__examples__jsm__shaders__SMAAShader-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__shaders__SMAAShader — three.js addon — shaders/SMAAShader.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-471 of readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/SMAAShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-489 of vendor/three/examples/jsm/shaders/SMAAShader.js: Third-party library captured byte-exact from the origin (three.js addon — shaders/SMAAShader.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 471,
-      "sourceFile": "readable/vendor__three__examples__jsm__shaders__SMAAShader.pretty.js"
+      "endLine": 489,
+      "sourceFile": "vendor/three/examples/jsm/shaders/SMAAShader.js",
+      "capture": "vendor/three/examples/jsm/shaders/SMAAShader.js"
     },
     {
-      "file": "vendor__three__examples__jsm__utils__BufferGeometryUtils-vendor.js",
+      "file": "readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js",
       "wholeFile": true,
       "title": "vendor__three__examples__jsm__utils__BufferGeometryUtils — three.js addon — utils/BufferGeometryUtils.js (vendor) (whole-file, never sliced)",
-      "desc": "Lines 1-1376 of readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js: Third-party library captured byte-exact from the origin (three.js addon — utils/BufferGeometryUtils.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten.",
+      "desc": "Lines 1-1501 of vendor/three/examples/jsm/utils/BufferGeometryUtils.js: Third-party library captured byte-exact from the origin (three.js addon — utils/BufferGeometryUtils.js (vendor)) — vendor rule: indexed whole-file in readable/, never sliced or rewritten. The derived text this section carries is readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js — the prettier 3.9.6 reading copy of the capture.",
       "note": "whole-file (vendor rule): indexed in readable/, never sliced",
       "startLine": 1,
-      "endLine": 1376,
-      "sourceFile": "readable/vendor__three__examples__jsm__utils__BufferGeometryUtils.pretty.js"
+      "endLine": 1501,
+      "sourceFile": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js",
+      "capture": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js"
     },
     {
       "file": "index-inline-1.css",
