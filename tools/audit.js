@@ -25,7 +25,14 @@
 //   2. Every section resolves: ranged slices have a src/*.js file on disk, a readable
 //      *.pretty.js|css sourceFile and in-bounds startLine/endLine; wholeFile sections
 //      (vendor libraries, inline entry blocks) must NOT have a src file; `skipped`
-//      sections must NOT have a src file and are re-verified textually.
+//      sections must NOT have a src file and are re-verified textually. A wholeFile
+//      section in the READING-COPY shape — its `file` is the readable pretty, its
+//      `sourceFile` the capture the pretty was rendered from — resolves the other
+//      way round: it must name a captured file that exists and is manifest-recorded,
+//      a reading copy that exists and is that capture's pretty under the mirror's
+//      own naming rule, the two must be DIFFERENT files (never a self-compare),
+//      the recorded range must cover the capture whole, and both must carry the
+//      same public export surface.
 //   3. The ranges of each sourceFile tile it exactly: first starts at line 1, each next
 //      starts at previous end + 1, last ends at EOF — no gaps, no overlaps.
 //   4. Byte-exact round-trip: every src slice minus its exact 2-line header
@@ -95,6 +102,30 @@ const prettyNameOf = (capRel) => {
   return "readable/" + flat + (/\.css$/i.test(rel) ? ".pretty.css" : ".pretty.js");
 };
 const captureByPretty = new Map(); // readable/<x>.pretty.js|css -> capture rel
+
+// A whole-file section is one of two things. Either "the capture, indexed
+// whole" (its `file` is a derived text under the derived root), or "the
+// reading copy, compared against the capture" — the shape the frozen export
+// gate reads:
+//
+//   { "file": "readable/foo.pretty.js", "wholeFile": true, "capture": "vendor/foo.js" }
+//
+// In the second shape the PRISTINE is the capture and the DERIVED text is the
+// reading copy: two different files, so the gate's comparison between their
+// export tables is real rather than a self-compare. `isWholeFile` recognises
+// a whole-file section (the boolean, or a path when `wholeFile` names the
+// capture) and `readingCopyCapture` names the capture such a section records:
+// `wholeFile` when it is a path, or a `capture`/`source`/`origin`/`from`
+// field.
+const isWholeFile = (s) =>
+  s.wholeFile === true || (typeof s.wholeFile === "string" && s.wholeFile.length > 0);
+const readingCopyCapture = (s) => {
+  if (typeof s.wholeFile === "string" && s.wholeFile) return s.wholeFile;
+  for (const f of ["capture", "source", "origin", "from"]) {
+    if (typeof s[f] === "string" && s[f]) return s[f];
+  }
+  return null;
+};
 
 // parse check — the exact standalone gate: node --input-type=module --check - < file
 function parseCheck(abs, rel) {
@@ -305,6 +336,7 @@ for (const f of captureSrcNames) {
 
 // ── ranges: existence, bounds, tiling ───────────────────────────────────
 const bySource = new Map();
+const readingCopySections = [];
 for (const s of sections) {
   if (!s.file || typeof s.sourceFile !== "string") continue;
   const src = path.join(proj, s.sourceFile);
@@ -313,7 +345,33 @@ for (const s of sections) {
     continue;
   }
   if (!/\.pretty\.(js|css|json)$/i.test(s.sourceFile)) {
-    problem(`section ${s.file}: sourceFile is not a readable pretty: ${s.sourceFile}`);
+    // A whole-file section may name the CAPTURE its reading copy was
+    // rendered from, and carry the reading copy as its derived text (its
+    // `file`). The rule below — every section names the readable pretty it
+    // was cut from — was written for a spec whose whole-file sections meant
+    // "the capture, indexed whole"; it still holds for every ranged slice,
+    // and this carve-out admits the reading-copy shape ONLY when it is
+    // sound (see § reading-copy shape below). Every other shape is rejected
+    // exactly as before.
+    const cap = readingCopyCapture(s) || s.sourceFile;
+    const copyRel = String(s.file);
+    const capAbs = path.join(proj, cap);
+    if (
+      !isWholeFile(s) ||
+      !/\.pretty\.(js|css|json)$/i.test(copyRel) ||
+      path.resolve(capAbs) !== path.resolve(src)
+    ) {
+      problem(`section ${s.file}: sourceFile is not a readable pretty: ${s.sourceFile}`);
+      continue;
+    }
+    readingCopySections.push({ s, capture: cap, copyRel, copyAbs: path.join(proj, copyRel), capAbs });
+    continue;
+  }
+  // a whole-file section whose derived text IS its sourceFile would make the
+  // frozen export gate compare the file with itself — a self-compare, which
+  // can only ever pass and proves nothing about the layer
+  if (isWholeFile(s) && path.resolve(path.join(proj, String(s.file))) === path.resolve(src)) {
+    problem(`section ${s.file}: the derived text IS its sourceFile (${s.sourceFile}) — a self-compare proves nothing`);
     continue;
   }
   const srcLines = getLines(src);
@@ -348,6 +406,82 @@ for (const [sourceFile, list] of bySource) {
     ok = false;
   }
   if (ok) tiledOK++;
+}
+
+// ── the reading-copy shape: a whole-file section and the capture it is compared to ──
+// The frozen export gate reaches such a section as
+//   { "file": "readable/foo.pretty.js", "wholeFile": true, "capture": "vendor/foo.js" }
+// The PRISTINE is the capture; the DERIVED text is the reading copy. Two
+// different files, so the gate's comparison of their export tables is real
+// and not a self-compare. The carve-out above admits the shape only when it
+// is SOUND, so nothing is let through that the old rule would have caught:
+//
+//   - the reading copy exists on disk, and it IS the pretty of THAT capture
+//     under the mirror's own served-path naming rule;
+//   - the capture exists on disk and is a captured file: .upstream/
+//     manifest.json records it, byte for byte;
+//   - the two are DIFFERENT files — different paths, and not byte-identical
+//     (a copy of the capture would make the comparison a self-compare, which
+//     can only ever pass and proves nothing about the layer);
+//   - the recorded range covers the capture whole;
+//   - both carry the SAME public export surface, so the two export tables the
+//     gate compares are comparable.
+let readingCopyOK = 0;
+const readingCopyRefs = [];
+for (const { s, capture, copyRel, copyAbs, capAbs } of readingCopySections) {
+  const label = `section ${s.file}`;
+  if (!fs.existsSync(copyAbs) || !fs.statSync(copyAbs).isFile()) {
+    problem(`${label}: the reading copy is missing on disk: ${copyRel}`);
+    continue;
+  }
+  if (!fs.existsSync(capAbs) || !fs.statSync(capAbs).isFile()) {
+    problem(`${label}: the capture is missing on disk: ${capture}`);
+    continue;
+  }
+  if (!manifest?.files?.[capture]) {
+    problem(`${label}: the capture ${capture} is not a captured file (.upstream/manifest.json)`);
+    continue;
+  }
+  const capBuf = fs.readFileSync(capAbs);
+  if (sha256(capBuf) !== manifest.files[capture].sha256) {
+    problem(`${label}: the capture ${capture} does not match .upstream/manifest.json`);
+    continue;
+  }
+  // the mirror's own naming rule ties the reading copy to THAT capture
+  const want = prettyNameOf(capture);
+  if (want !== copyRel) {
+    problem(`${label}: the naming rule maps ${capture} to ${want}, not to ${copyRel}`);
+    continue;
+  }
+  // the two must be DIFFERENT files
+  const copyBuf = fs.readFileSync(copyAbs);
+  if (path.resolve(capAbs) === path.resolve(copyAbs) || capBuf.equals(copyBuf)) {
+    problem(`${label}: the reading copy IS its capture (${capture}) — a self-compare proves nothing`);
+    continue;
+  }
+  // the whole-file range must cover the capture whole
+  const capLines = getLines(capAbs).length;
+  if (s.startLine !== 1 || s.endLine !== capLines) {
+    problem(
+      `${label}: the recorded range ${s.startLine}-${s.endLine} does not cover the capture ${capture} whole (${capLines} lines)`,
+    );
+    continue;
+  }
+  // the two export tables must be comparable
+  const capNames = exportsOf(capBuf.toString("utf8"));
+  const copyNames = exportsOf(copyBuf.toString("utf8"));
+  const lost = [...capNames].filter((n) => !copyNames.has(n));
+  if (lost.length) {
+    problem(`${label}: a public export name of ${capture} is missing from the reading copy: ${lost.join(", ")}`);
+    continue;
+  }
+  const gained = [...copyNames].filter((n) => !capNames.has(n));
+  if (gained.length) {
+    problem(`${label}: the reading copy exports a name ${capture} does not: ${gained.join(", ")}`);
+    continue;
+  }
+  readingCopyOK++;
+  readingCopyRefs.push(copyRel);
 }
 
 // ── byte-exact round-trip + header provenance ───────────────────────────
@@ -477,9 +611,27 @@ for (const capRel of Object.keys(manifest?.files ?? {}).map(normRel)) {
 }
 if (inlineMap && inlineBlocks === 0) problem("readable/index-inline-map.json exists but the capture has no inline blocks");
 
+// ── every whole-file section's DERIVED TEXT must exist on disk ──────────
+// A whole-file section carries a derived text: its reading copy (its `file`)
+// or, for an inline entry block, the inline twin (its `sourceFile`). A
+// section whose derived text is nowhere on disk is a section the frozen
+// export gate finds no counterpart for — its export tables are reported
+// "NOT covered", i.e. unchecked rather than proven intact. The reading-copy
+// shape above carries the reading copy; an inline block carries the twin.
+for (const s of sections) {
+  if (!isWholeFile(s)) continue;
+  const fileRel = String(s.file);
+  if (fs.existsSync(path.join(proj, fileRel))) continue;
+  const srcRel = typeof s.sourceFile === "string" ? s.sourceFile.split(path.sep).join("/") : null;
+  if (srcRel && inlineTwinRels.has(srcRel)) continue; // an inline block: its twin is the derived text
+  problem(`section ${s.file}: the derived text of a whole-file section does not exist on disk: ${fileRel}`);
+}
+
 // ── every pretty referenced + provably derived + layer completeness ─────
 const referenced = new Set();
 for (const [sourceFile] of bySource) referenced.add(sourceFile.split(path.sep).join("/"));
+// a reading-copy section references its reading copy as its derived text
+for (const rel of readingCopyRefs) referenced.add(rel.split(path.sep).join("/"));
 let derivedOK = 0;
 for (const abs of prettyFiles) {
   const rel = path.relative(proj, abs).split(path.sep).join("/");
@@ -511,21 +663,28 @@ if (manifest) {
 
 // ── vendor rule: wholeFile sections carry the recorded shape ────────────
 const VENDOR_GUARDS = [
-  ["vendor__three__build__three.core-vendor.js", /const REVISION = "185"/, /class BufferGeometry/],
-  ["vendor__three__build__three.module-vendor.js", /class WebGLRenderer/, /three\.core\.js/],
-  ["vendor__peerjs__peerjs.min-vendor.js", /__peerData/, /peerjs/i],
+  ["vendor/three/build/three.core.js", /const REVISION = "185"/, /class BufferGeometry/],
+  ["vendor/three/build/three.module.js", /class WebGLRenderer/, /three\.core\.js/],
+  ["vendor/peerjs/peerjs.min.js", /__peerData/, /peerjs/i],
 ];
-for (const [file, reA, reB] of VENDOR_GUARDS) {
-  const sec = sections.find((s) => s.file === file);
+for (const [capture, reA, reB] of VENDOR_GUARDS) {
+  // the guard is keyed by the CAPTURE the vendor chunk came from, so it holds
+  // for the section whatever it names as its derived text
+  const sec = sections.find((s) => s.capture === capture);
   if (!sec) continue; // absence is fine; presence must hold its guard
-  if (sec.wholeFile !== true) {
-    problem(`vendor section ${file} is not wholeFile`);
+  if (!isWholeFile(sec)) {
+    problem(`vendor section ${sec.file} is not wholeFile`);
     continue;
   }
-  const text = getLines(path.join(proj, sec.sourceFile))
-    .slice(sec.startLine - 1, sec.endLine)
-    .join("\n");
-  if (!reA.test(text) || !reB.test(text)) problem(`vendor section ${file}: content guard failed — readable changed shape`);
+  // the guard reads the DERIVED text — the reading copy — because that is
+  // what "readable changed shape" means: the capture is byte-exact by
+  // construction (manifest-recorded), the reading copy is what prettier
+  // produced.
+  const copyAbs = path.join(proj, String(sec.file));
+  if (!fs.existsSync(copyAbs)) continue; // already reported
+  const text = fs.readFileSync(copyAbs, "utf8");
+  if (!reA.test(text) || !reB.test(text))
+    problem(`vendor section ${sec.file}: content guard failed — readable changed shape`);
 }
 
 // ── the hard rule: src/ import resolution against the capture ───────────
@@ -666,6 +825,7 @@ function loadPinnedPrettier() {
       `${captureSrcNames.size} captured src/ modules on disk (byte-exact, manifest-listed), ` +
       `${derivedOK}/${prettyFiles.length} pretties provably distinct from their capture source, ` +
       `${indexOnlyFiles.size} index-only wholeFile/skipped sections carry no src file, ` +
+      `${readingCopyOK}/${readingCopySections.length} reading-copy sections compared against their capture, ` +
       `${inlineBlocks} inline content block(s) with twins + index-inline-map.json, ` +
       `${resolvedImports}/${checkedImports} imports resolve inside the capture (${whitelisted} whitelisted machinery, ` +
       `${importMap.size} import-map entries), ` +
