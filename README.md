@@ -71,6 +71,7 @@ itself cannot be mirrored — the game announces it in `src/net.js`).
 - `tools/verify.mjs` — re-hash the capture against the manifest
 - `tools/update.mjs` — read-only drift probe against the live origin
 - `tools/audit.js` — integrity gate for the derived layers (`AUDIT PASS`)
+- `tools/check-links.mjs` — layer link gate (every export table in the layer names a binding the layer declares)
 - `docs/cover.png`, `docs/boot-2026-10-12.png` — cover + boot evidence (both
   captured in actual gameplay: solo round, zombies in frame, weapon + HUD)
 
@@ -99,6 +100,7 @@ into a solo round; `?net=local` forces the local transport).
 node tools/verify.mjs     # re-hash the capture against the manifest
 node tools/audit.js       # derived-layer integrity gate
 node tools/check-exports.mjs   # the derived layer still exports every public name
+node tools/check-links.mjs     # every export table names a binding the layer declares
 ```
 
 Last run: `31 files checked, 0 problems` and `AUDIT PASS`.
