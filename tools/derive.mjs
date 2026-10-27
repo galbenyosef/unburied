@@ -373,18 +373,27 @@ async function main() {
       const cls = vendorClass(rel, tag);
       if (cls.guard && !cls.guard(pretty))
         throw new Error(`${rel}: whole-file guard failed (${cls.guardWhy}) — readable changed shape`);
+      // reading-copy whole-file shape (the frozen export gate's contract): the
+      // section's `sourceFile`/`capture` is the byte-exact capture (the
+      // pristine), its `file` is the prettier reading copy (the derived text).
+      // Two different files, so the gate's export-table comparison is real and
+      // never a self-compare. Ranges are capture line numbers.
+      const captureLines = linesOf(text);
       sections.push({
-        file: `${tag}-vendor.js`,
+        file: sourceFile,
         wholeFile: true,
         title: cls.title,
-        desc: `Lines 1-${lines.length} of ${sourceFile}: ${cls.desc}`,
+        desc:
+          `Lines 1-${captureLines.length} of ${rel}: ${cls.desc} ` +
+          `The derived text this section carries is ${sourceFile} — the prettier 3.9.6 reading copy of the capture.`,
         note: "whole-file (vendor rule): indexed in readable/, never sliced",
         startLine: 1,
-        endLine: lines.length,
-        sourceFile,
+        endLine: captureLines.length,
+        sourceFile: rel,
+        capture: rel,
       });
       sources.push({
-        sourceFile,
+        sourceFile: rel,
         capture: rel,
         captureKind: "file",
         captureSha256: manifest.files[rel].sha256,
@@ -703,6 +712,9 @@ async function main() {
   const spec = {
     project: "unburied",
     kind: "statement-aligned-slices",
+    // this mirror's derived layer spans readable/ and src/, so the mirror root
+    // is its derived root (read by the frozen export gate)
+    derivedRoot: ".",
     defaultFile: `src/${firstSlice ? firstSlice.file : ""}`,
     note:
       "UNBURIED — Blackwald Bunker (https://unburied.inkwave.workers.dev/) is capture-class: a hand-written ES " +
@@ -735,7 +747,7 @@ async function main() {
       json: "parser json, no plugins (inline importmap blocks)",
     },
     source:
-      `readable/: ${sources.filter((s) => s.sourceFile?.endsWith(".pretty.js")).length} JS pretties ` +
+      `readable/: ${sources.filter((s) => s.sourceFile?.endsWith(".pretty.js") || /vendor bundle/.test(s.derived)).length} JS pretties ` +
       `(${appJs.length} app module(s) sliced, ${vendorJsS.length} vendor wholeFile) + ` +
       `${cssSources.length} CSS pretties; ` +
       `src/: ${appJs.reduce((n, s) => n + s.slices, 0)} statement-aligned slices across ${appJs.length} app module(s); ` +
@@ -804,9 +816,16 @@ async function main() {
   }
   let prettyParsed = 0;
   for (const s of sources) {
-    if (!s.sourceFile?.endsWith(".pretty.js")) continue;
-    if (!parses(readDerived(path.join(proj, s.sourceFile))).ok) {
-      console.error(`PARSE FAIL ${s.sourceFile}`);
+    // vendor sources name the capture as their sourceFile (reading-copy shape);
+    // their pretty twin is still parse-checked here
+    const prettyRel = s.sourceFile?.endsWith(".pretty.js")
+      ? s.sourceFile
+      : /vendor bundle/.test(s.derived)
+        ? prettyRelFor(s.capture)
+        : null;
+    if (!prettyRel) continue;
+    if (!parses(readDerived(path.join(proj, prettyRel))).ok) {
+      console.error(`PARSE FAIL ${prettyRel}`);
       bad++;
     } else prettyParsed++;
   }
