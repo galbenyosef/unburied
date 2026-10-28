@@ -172,6 +172,18 @@ bytes untouched — `node tools/verify.mjs` re-hashes all 31 files):
   Bunker" finds nothing — the origin publishes the deployment only, so the
   mirror stands.
 
+## Boot test (2026-10-27)
+
+- Entry: `http://127.0.0.1:4998/` served by `tools/serve.mjs` with the network blocked (`MAP * 127.0.0.1`).
+- Outcome: **rendered** — the main menu appeared, then clicking SOLO dropped into a live solo round in the bunker: M1911 in hand, HUD reading 500 points and 8/80 ammo.
+- Evidence: body 73 chars in gameplay (298 on the menu); canvas 1262x568; 0 console errors (one three.js shader-precision warning); 0 failed same-origin requests, 0 blocked cross-origin; screenshot `docs/boot-2026-10-27.png`.
+- Gaps seen: none.
+
+The boot confirms the README's claim that the capture is the whole solo runtime
+closure: every request the game made was a same-origin 200 against the 31
+captured files, with no off-origin fetches. There is no gated or absent
+playable build — the mirror is playable offline.
+
 ## Mirror conventions
 
 - **Capture layer** — the captured files are byte-exact copies of what the
